@@ -1,0 +1,190 @@
+TOTAL PAGES: 19
+
+--- PAGE 1 ---
+Introduction to Flask & Web Development 
+Concepts
+Presented by  Prof. Nilesh Panchotiya
+--- PAGE 2 ---
+Learning Objectives
+Master fundamental web architecture concepts
+Differentiate Frontend vs Backend operations
+Understand Client -Server and 3 -Tier models
+Learn HTTP Request / Response transactionsUnderstand why web frameworks are used
+Compare Flask (Micro) vs Django (Full -Stack)
+Explore Flask Request Flow & MVC structure
+Build and run your first multi -route Flask application
+
+--- PAGE 3 ---
+Web Development Fundamentals
+Static Websites
+Delivers fixed HTML/CSS content stored on server directly to browser without 
+server execution.
+Dynamic Web Applications
+Generates custom content in real -time using backend code (Python/Flask) 
+and database records.
+Fast & simple to build
+Examples: Portfolios, static landing pages
+Personalised per user
+Examples: Amazon, YouTube, Instagram, Gmail
+
+--- PAGE 4 ---
+Frontend vs Backend
+Frontend (Client -Side)
+The visual interface user interacts with. Built using HTML, CSS, JavaScript, React, Angular.
+Backend (Server -Side)
+The hidden engine executing business logic, security, and database queries. Powered by 
+Python & Flask.
+--- PAGE 5 ---
+Client -Server Architecture
+1. Client (Browser)
+Captures user action, formats HTTP Request, and 
+renders received HTML payload.
+2. Server (Flask)
+Processes incoming route requests, executes 
+Python code logic, builds response.
+3. Data Layer
+Stores permanent records (SQLite, MySQL) 
+queried dynamically by the server.
+
+--- PAGE 6 ---
+How Web Applications Work
+1. Enter URL
+User enters website address 
+in browser.2. HTTP Request
+Browser sends GET/POST 
+packet across Internet.
+3. Flask View
+Flask matches route and 
+executes view function.4. DB Fetch
+Data retrieved or updated if 
+required.
+5. Render Page
+Browser receives HTML 
+response & displays it.
+--- PAGE 7 ---
+HTTP Protocol & Request Methods
+HTTP Method Core Action Real -World Example Context
+GET Retrieve / read data from server Opening Amazon homepage or searching Google
+POST Send new data to server Submitting a login form or posting a comment
+PUT Update existing resource completely Updating profile info or editing blog post
+DELETE Remove resource from server Deleting an email or deleting an uploaded photo
+--- PAGE 8 ---
+URL Structure & Status Codes
+Anatomy of a URL
+Status Meaning Context
+200 OK Success
+404 Not Found Invalid URL path
+403 Forbidden No authorization
+500 Server Error Python program crashedProtocol: https:// (Secure encryption)
+Domain: amazon.in (Server domain/IP)
+Path: /mobile (Flask endpoint route)
+--- PAGE 9 ---
+Cookies and Sessions
+Cookies (Client Storage)
+Small key -value data stored directly inside the user's Browser.Sessions (Server Storage)
+Encrypted data state stored securely on Backend Flask Server.
+Keeps track of lightweight user preferences
+Sent with every HTTP request automaticallyRemembers logged -in users across page reloads
+Prevents re -entering password repeatedly
+
+--- PAGE 10 ---
+Introduction to Web Frameworks
+Building Without a Framework
+Developers must manually write raw socket handling, HTTP message parsing, 
+manual URL matching, and header management from scratch.Building With Flask Framework
+Framework provides pre -built routing, session handling, templating, and 
+request processing out -of-the-box so you focus purely on app logic.
+--- PAGE 11 ---
+Flask Features & Background
+Micro Framework
+Lightweight core created by Armin Ronacher in 
+2010. Simple, flexible, unopinionated.
+Built on Werkzeug & Jinja2
+Uses Werkzeug for WSGI routing/HTTP handling 
+& Jinja2 for dynamic HTML templating.
+Built -in Server & Debugger
+Includes development web server and interactive 
+debugger for rapid local testing.
+
+--- PAGE 12 ---
+Flask vs Django Overview
+Comparison Feature Flask (Micro Framework) Django (Full -Stack Framework)
+Philosophy Minimalist & Unopinionated "Batteries Included" (Monolithic)
+Setup Complexity 1 File (`app.py`), 5 lines code Multiple pre -generated config files
+Database Layer Pluggable (SQLAlchemy, Mongo) Built -in Django ORM
+Best Suited For APIs, ML Deployment, Microservices Large Enterprise monoliths
+--- PAGE 13 ---
+When to Choose Flask or Django
+Choose Flask When: Choose Django When:
+Learning backend concepts without unnecessary complexity
+Building lightweight REST APIs & Microservices
+Deploying Machine Learning models (AI)
+Creating student projects and prototypes
+Building large E -Commerce / ERP systems
+Built -in admin panel and user auth are required
+Working with large teams following rigid structure
+Enterprise applications with built -in ORM
+
+--- PAGE 14 ---
+Flask Request Processing Flow
+1. Client Request
+Browser sends HTTP GET 
+`/about` request.2. Route Lookup
+Flask matches route to 
+`@app.route ('/about')`.
+3. View Execution
+Python view function runs 
+business logic.4. Render HTML
+Jinja2 generates final HTML 
+string.
+5. HTTP Response
+Server returns 200 OK + HTML 
+payload.
+--- PAGE 15 ---
+Project Structure & MVC
+# Main Python file
+# Dynamic HTML files
+# Static assetsModel (Data): Database layer handling data operations (e.g. via SQLAlchemy ).
+View (Presentation): HTML templates in `templates/` directory rendered to user.
+Controller (Logic): Python functions in `app.py` processing user requests.
+--- PAGE 16 ---
+First Flask Application
+from flask import Flask # Initialize Flask application app = Flask( __name__ ) # Define 
+root URL route @app.route ("/") defhome (): return "Hello Flask!" if__name__ == 
+"__main__" : app.run(debug= True )
+from import
+# Initialize Flask application
+__name__
+# Define root URL route
+@app.route "/"
+def home
+return "Hello Flask!"
+if "__main__"
+True
+--- PAGE 17 ---
+Routing in Flask Applications
+@app.route ("/") defhome (): return "Welcome to Home Page!" @app.route ("/about" ) defabout (): return "This is the About Page." @app.route ("/contact" ) defcontact (): return
+"Contact us at: student@college.edu"
+@app.route "/"
+def hom
+ereturn "Welcome to Home Page!"
+@app.route "/about"
+def about
+return "This is the About Page."
+@app.route "/contact"
+def contact
+return "Contact us at: student@college.edu"
+--- PAGE 18 ---
+Real -World Use & Lab Activity
+Companies Using Flask Hands -on Lab Activity
+Netflix: Powers core API microservices
+Reddit: Uses Flask for backend traffic services
+Lyft: Handles high -concurrency microservices
+1
+.Install Flask: pip install flask
+2. Create app.py and add Home, About, Contact routes
+3. Run server using python app.py
+4. Add a custom /profile route independently
+--- PAGE 19 ---
+Thank You
+Presented by  Prof. Nilesh Panchotiya

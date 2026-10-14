@@ -1,0 +1,332 @@
+TOTAL PAGES: 29
+
+--- PAGE 1 ---
+Routing, Templating 
+& Static Files
+Module 2: how Flask handles user requests, renders dynamic web 
+layouts, and serves client assets.
+Presented by  Prof. Nilesh Panchotiya
+--- PAGE 2 ---
+A user never communicates directly with Python. Web requests pass through an architectural pipeline before returning styled v isual content.
+Key Takeaway: Flask acts as a middleware bridge, transforming backend Python data structures into standardized HTML markup that web 
+browsers understand.
+Browser
+Initiates Request
+Flask Route
+Matches URL
+Python Function
+Executes Logic
+Jinja2 Template
+Renders HTML
+Response
+Renders Page
+How Does Flask Display a Webpage?
+--- PAGE 3 ---
+Routing Definition
+Routing is the process of mapping an incoming HTTP client URL to a 
+specific Python view function inside your Flask application.
+Operational Flow
+When a user requests :# basic_app.py 
+from import
+__name__
+@app.route "/"
+def home
+return "Welcome to Home Page"
+@app.route "/about"
+def about
+return "About Us Page"
+What is URL Routing?
+--- PAGE 4 ---
+The Routing Request Cycle
+Flask URL Map Inspection
+Inside Python code, you can print the routing table:
+1. HTTP Request: Client sends a request, e.g., .
+2. Werkzeug Map: Flask uses Werkzeug's routing engine 
+to inspect registered endpoints.
+3. Decorator Match: Finds matching view function 
+decorated with .
+4. View Execution: Executes and obtains the return 
+value.
+5. HTTP Response: Wraps data into an HTTP Response 
+with status 200 OK.print
+# Output:
+# Map([ about>,
+# home>])
+How Routing Works Internally
+
+--- PAGE 5 ---
+Exact string endpoints that never change regardless of user or input 
+parameters.Endpoints that accept dynamic parameter values directly from the 
+requested URL path.Static Routes
+@app.route "/about"
+@app.route "/contact"
+@app.route "/login"Dynamic Routes
+@app.route "/student/"
+@app.route "/product/"
+@app.route "/profile/"
+05 / 30
+Classification of Flask Routes
+
+--- PAGE 6 ---
+Dynamic routes allow Flask to extract variables directly from the requested URL pattern using  syntax.
+@app.route "/student/"
+def student
+# 'name' is passed automatically
+return f"Hello, {name}!"
+The parameter name specified inside must exactly match the view function 
+argument name!Execution Example
+Client Request URL:
+http://localhost:5000/student/Rahul
+Rendered Browser Output:Handling Dynamic Routes
+
+--- PAGE 7 ---
+Converter Description & Example Path
+string Default. Accepts text without slashes (/user/Rahul)
+int Accepts positive integers (/product/101)
+float Accepts positive floating point values (/price/12.50)
+path Like string, but accepts slashes (/docs/py/flask)
+uuid Accepts UUID strings (/item/123e4567 -e89b...)# Typed route converter implementation
+@app.route "/age/"
+def show_age
+# 'age' is automatically typecast to int
+return f"Age is: {age} (Type: {type(age).__name__})"
+07 / 30
+Flask URL Converters
+
+--- PAGE 8 ---
+Flask allows stacking multiple decorators over a single view function to bind 
+multiple URLs.Key Advantages
+@app.route "/"
+@app.route "/home"
+@app.route "/index"
+def home
+return "Welcome to the Central Home Page"
+Flexible Navigation: Enables intuitive aliases for key landing pages.
+Backward Compatibility: Keeps legacy URLs functioning during app 
+refactoring.
+DRY Principle: Avoids duplicating identical view function logic across 
+files.08 / 30
+Binding Multiple Routes
+
+--- PAGE 9 ---
+Hardcoded Approach (Anti -Pattern)
+Problem: If routing rules change from to in Python, every HTML file breaks and requires 
+manual editing.Dynamic Solution: url_for()
+Solution: Dynamically look up endpoint URLs by function name instead of static strings.
+"/about"
+ "{{ url_for('about') }}"09 / 30
+The Danger of Hardcoding URLs
+
+--- PAGE 10 ---
+Definition
+is a Flask function that generates a URL path for a given target view function name 
+dynamically.
+Standard Syntax# app.py
+@app.route "/company -about -page"
+def about
+return "about.html"
+"{{ url_for('about') }}"
+"/company -about -page"
+'function_name'Dynamic URL Generation with url_for()
+
+--- PAGE 11 ---
+Refactoring Safety
+Change route URLs in Python without breaking templates 
+or user navigation links.
+Automatic Escaping
+Handles special characters and URL encoding safely 
+without manual formatting.
+Application Root Context
+Respects relative sub -paths gracefully if hosted under 
+custom domain prefixes.11 / 30
+Why Use url_for()?
+
+--- PAGE 12 ---
+# View function expecting argument
+@app.route "/user/"
+def user_profile
+return "profile.html"
+"{{ url_for('user_profile', username='Rahul') }}"Output URL Result
+Matches parameter name to route variable:
+Query Parameters Bonus
+Extra non -matching kwargs become query params:
+# Result: /user/Rahul?page=212 / 30
+url_for() with Dynamic Arguments
+
+--- PAGE 13 ---
+Returning Inline Strings (Impractical)
+Mixing business logic with raw markup leads to unmaintainable, messy codebases.Using Template Files (Separation of Concerns)
+Keeps presentation HTML files separate from backend server algorithms.
+@app.route "/"
+def home
+return "Hello WorldBad practice..."
+➔ ➔13 / 30
+Introduction to HTML Templates
+
+--- PAGE 14 ---
+Jinja2 is Flask's built -in, fast, expressible, and secure dynamic templating engine.
+HTML Structure
+Standard web document layout
+Python Data
+Variables, dicts & lists
+Logic Operations
+If-else & loop constructs
+Rendered Output
+Pure HTML sent to clientWhat is the Jinja2 Engine?
+--- PAGE 15 ---
+from import
+__name__
+@app.route "/"
+def home
+return "index.html"Required Directory Structure
+Flask looks inside a folder specifically named by default:
+templates
+/index.htm
+l15 / 30
+Rendering Templates with render_template()
+
+--- PAGE 16 ---
+1. Backend (Python) 2. Frontend Template (user.html)
+@app.route "/user"
+def profile
+return
+"user.html"
+name "Rahul"
+age 20
+{{ name }}
+{{ age }}
+Rendered Browser Output:
+Welcome, Rahul!
+Age: 2016 / 30
+Passing Data to HTML Templates
+
+--- PAGE 17 ---
+# app.py
+@app.route "/students"
+def student_list
+"Rahul" "Amit" "Neha"
+return
+"students.html"
+students{% for s in students %}
+{{ s }}
+{% endfor %}17 / 30
+Iterating Lists with Jinja2 Loops
+
+--- PAGE 18 ---
+Variable Interpolation
+Prints the value of an expression to template output.Control Statements
+Executes conditional statements, loops & template logic.
+Jinja2 Comments
+Server -side comments hidden from rendered browser HTML source.Jinja Macros
+Reusable function -like HTML snippet components.
+18 / 30
+Essential Jinja2 Delimiters
+
+--- PAGE 19 ---
+Without Template Inheritance
+Every single HTML file must repeat common layout tags:With Template Inheritance
+Define global boilerplate once inside :
+Identical tags & CSS links
+Duplicated navigation bar headers
+Repeated footer copyright widgets
+Child pages extend the base layout
+Only override specific dynamic content blocks
+100% DRY (Don't Repeat Yourself) architectureThe Problem of Code Duplication
+
+--- PAGE 20 ---
+Parent Template Structure
+{% block content %}
+{% endblock %}Extended Child Pages
+Block Directive: defines replaceable placeholders that child templates populate.
+Architecture of base.html
+
+--- PAGE 21 ---
+{% extends "base.html" %}
+{% block content %}
+{% endblock %}Primary Benefits
+Modular Design: Standardizes application branding.
+Maintenance Ease: Updating navigation in updates every page 
+instantly.
+Clean Code: Dramatically reduces HTML file sizes.
+21 / 30
+Template Inheritance in Action
+
+--- PAGE 22 ---
+Filters modify variable display values. Syntax:
+Filter Jinja2 Example Expression Input Value Output Value
+{{ name | upper }} "rahul" RAHUL
+{{ name | lower }} "FLASK" flask
+{{ city | title }} "new york" New York
+{{ students | length }} ['A', 'B', 'C'] 3
+22 / 30
+Transforming Data with Jinja2 Filters
+--- PAGE 23 ---
+Fallback
+Provides a fallback if variable is undefined:String Concatenation
+Joins list elements into a single string:
+Reversing
+Reverses string or list sequence:Disable HTML Escaping
+Renders raw HTML without safety escaping:
+23 / 30
+Advanced Jinja2 Filters
+
+--- PAGE 24 ---
+Static files are client assets served directly to the browser without Python 
+processing.
+Asset CategoriesMandatory Folder Structure
+CSS: Stylesheets ()
+JS:Client scripts ()
+Images: Logos & graphics ()
+Media: Audio, video & custom fonts
+static
+/ css/style.cs
+sjs/script.j
+simages/logo.pn
+g
+24 / 30
+Serving Static Assets
+
+--- PAGE 25 ---
+1. Create CSS File
+2. Link in HTML Template
+/* static/css/style.css */
+background -color #f8fafc
+color #0f172a
+"stylesheet"
+"{{ url_for('static', filename='css/style.css') }}"25 / 30
+Linking CSS Files
+
+--- PAGE 26 ---
+1. Create JS File2. Include in HTML Template
+// static/js/script.js
+"Flask App Loaded!"
+"{{ url_for('static', filename='js/script.js') }}"26 / 30
+Including JavaScript Files
+
+--- PAGE 27 ---
+"{{ url_for('static', filename='images/logo.png') }}"
+"App Logo"
+Always pass as the target endpoint name inside when loading static folder assets!
+27 / 30
+Displaying Image Assets
+
+--- PAGE 28 ---
+app.py # Main Flask App & Routes
+templates/ # Jinja2 HTML Templates
+static/ # Public Static Assets
+venv/ # Python Virtual EnvironmentKey Directories
+app.py: Contains URL routes, view logic & app initialization.
+templates/: Dedicated folder for Jinja2 rendered HTML files.
+static/: Publicly accessible stylesheets, scripts & branding assets.Standard Project Structure
+
+--- PAGE 29 ---
+➔ ➔ ➔ ➔
+Static Asset Resolution during Step 5:
+When rendering , the browser requests , , and through the static route handler to display the final styled web page.1. GET /
+Client Request2. @app.route("/")
+Route Match3. home()
+Python View4. render_template()
+Pass Data5. index.html
+Jinja2 Engine
+29 / 30
+End-to-End Application Flow

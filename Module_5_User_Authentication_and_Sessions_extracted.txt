@@ -1,0 +1,131 @@
+TOTAL PAGES: 12
+
+--- PAGE 1 ---
+MODULE 5
+User Authentication & Sessions
+Login, Sessions, Flash Messaging, and RBAC in Flask.
+Core Topics Implementation
+Flask -Login
+Sessions & Cookies
+Flash MessagingRegistration Forms
+Profile Updates
+Role -Based Access
+--- PAGE 2 ---
+
+--- PAGE 3 ---
+Login & Logout
+Login Flow
+fromflask_login importlogin_user # ... verification ... login_user (user)Logout Route
+Clears the user's session.
+fromflask_login import
+logout_user 
+@app.route('/logout' ) def
+logout(): logout_user () 
+returnredirect ('/login' )1.Enter credentials.
+2.Find user in DB.
+3.Verify credentials.
+4.Call login_user(user) .
+
+--- PAGE 4 ---
+Protecting 
+Pages
+The @login_required
+decorator blocks 
+unauthenticated 
+guests.
+fromflask_login importlogin_required, current_user 
+@app.route('/dashboard' ) @login_required defdashboard (): return"Welcome to 
+Dashboard" @app.route('/profile' ) @login_required defprofile(): # Access 
+logged in user returncurrent_user.usernameGuest User
+Redirected to Login 
+Page.
+Logged -in User
+Access Granted.
+
+--- PAGE 5 ---
+PART 2
+Sessions in Flask
+Maintains state across 
+stateless HTTP requests. fromflask importsession # App config app.secret_key = 'my-secret-key'# 
+Write to session session[ 'username' ] = 'Nilesh' # Retrieve user = 
+session. get('username' ) # Remove session. pop('username' , None)
+Requires a secret_key .
+Used to sign session data 
+securely.
+
+--- PAGE 6 ---
+Cookies & State Management
+Session
+Maintains user state.
+Flask provides built -in support.
+Flask's default is cookie -based & signed.
+Useful for temporary app data.Cookie
+Stores small data in browser.
+Managed through the browser.
+Sent with HTTP requests.
+Useful for preferences.
+
+--- PAGE 7 ---
+PART 3
+Flash Messaging
+Temporary messages displayed after actions (e.g., login, updates).
+fromflask importflash # Basic message flash("Login successful!" ) # With a category flash("Invalid 
+password!" , "error")
+success error warning info
+
+--- PAGE 8 ---
+Displaying Messages in HTML
+Rendered via Jinja templating engine.
+Basic Loop
+{% with messages = get_flashed_messages() %}{% formessage in messages %}<p>{{ message }} p> {% endfor %} {% endwith %}
+
+--- PAGE 9 ---
+PART 4
+Registration Flow
+Form Data Validate Check Exists Save DB Flash Success
+Crucial 
+Validations
+# Controller logic user = User.query. filter_by ( username=username ). first() ifuser: flash("Username exists!" , 
+"error") returnredirect ('/register' )Required fields 
+not empty.
+Passwords must 
+match.
+Username/Emai
+l must be 
+unique.
+Hash passwords
+
+--- PAGE 10 ---
+PART 5
+Profile Updates
+Requires @login_required to 
+ensure only the authenticated user 
+modifies their data.@app.route('/profile' , methods=[ 'GET', 'POST']) @login_required defprofile(): if
+request.method == 'POST': current_user.username = \request.form[ 'username' ] 
+current_user.email = \request.form[ 'email'] db.session. commit() flash("Profile 
+updated!" , "success" ) returnredirect ('/profile' ) return
+render_template ('profile.html' ) HTML Template Snippet:
+value="{{ 
+current_user.username }}">
+
+--- PAGE 11 ---
+Role Access Level
+AdminManage app & 
+users
+FacultyManage 
+academic info
+StudentView academic 
+infoPART 6
+Role -Based Access Control
+Controls access to resources based on assigned roles, rather than per -user permissions.
+Role Checking Logic
+@app.route('/admin' ) @login_required defadmin(): # Verify authorization ifcurrent_user.role != 'admin': return
+"Access Denied" return"Admin Dashboard"
+
+--- PAGE 12 ---
+Module Summary
+Flask -Login: Handle auth state securely.
+Sessions: Maintain server -side user data.
+Cookies: Browser -side storage.Flash Messages: Temporary UI feedback.
+Registration/Profile: Secure forms & updates.
+RBAC: Authorize via roles, not just identity.

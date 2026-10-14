@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#3b82f6" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)"/>
+  <rect x="36" y="36" width="440" height="440" rx="95" fill="none" stroke="#334155" stroke-width="4"/>
+  
+  <g filter="url(#shadow)">
+    <!-- Flask Beaker Outline -->
+    <path d="M 216 130 L 296 130 L 296 210 L 390 370 A 24 24 0 0 1 370 404 L 142 404 A 24 24 0 0 1 122 370 L 216 210 Z" fill="#ffffff"/>
+    
+    <!-- Liquid -->
+    <path d="M 166 330 C 210 320, 302 345, 346 330 L 370 380 A 16 16 0 0 1 356 394 L 156 394 A 16 16 0 0 1 142 380 Z" fill="url(#liquidGrad)"/>
+    
+    <!-- Bubbles -->
+    <circle cx="236" cy="350" r="14" fill="#ffffff" opacity="0.85"/>
+    <circle cx="286" cy="336" r="10" fill="#ffffff" opacity="0.8"/>
+    <circle cx="256" cy="305" r="7" fill="#ffffff" opacity="0.9"/>
+    
+    <!-- Lip / Rim -->
+    <rect x="204" y="118" width="104" height="18" rx="9" fill="#ffffff"/>
+  </g>
+</svg>

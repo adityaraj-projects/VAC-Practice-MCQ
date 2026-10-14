@@ -1,0 +1,79 @@
+{
+  "name": "Flask VAC 227862 Exam Preparation",
+  "short_name": "Flask VAC",
+  "id": "flask-vac-227862-prep",
+  "description": "Comprehensive offline-ready MCQ examination preparation and revision system for Web Application Development using Flask (Subject Code: 227862).",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay", "minimal-ui"],
+  "background_color": "#0a0f1d",
+  "theme_color": "#3b82f6",
+  "orientation": "any",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["education", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Full Mock Exam",
+      "short_name": "Mock Exam",
+      "description": "Start a timed mock examination across all 7 modules",
+      "url": "./index.html?action=mock",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Quick Revision Notes",
+      "short_name": "Revision Notes",
+      "description": "Review concise university syllabus notes & code examples",
+      "url": "./index.html?action=notes",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Performance Analytics",
+      "short_name": "Analytics",
+      "description": "Check exam readiness and weak topic analysis",
+      "url": "./index.html?action=analytics",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Retry Mistakes",
+      "short_name": "Mistakes Bank",
+      "description": "Practice previously incorrect questions",
+      "url": "./index.html?action=mistakes",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}

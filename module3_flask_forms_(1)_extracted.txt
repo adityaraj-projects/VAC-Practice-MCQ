@@ -1,0 +1,242 @@
+TOTAL PAGES: 16
+
+--- PAGE 1 ---
+FLASK WEB DEVELOPMENT
+Module 3
+Forms and Request Handling
+HTML forms  •  GET & POST  •  the request object  •  file uploads  •  validation
+Input Forms & Validation File Uploads & Responses
+Prof. Kuntal Pramanik  |  BCA / MCA Dept, Parul University
+--- PAGE 2 ---
+MODULE ROADMAP
+What We'll Cover
+01
+HTML Forms
+Building forms with inputs, labels, 
+and submit controls02
+HTTP Methods
+How GET and POST carry data to 
+the server03
+Request Object
+Reading submitted data with 
+Flask's request04
+Files & Validation
+Handling uploads safely and 
+validating input
+Flask Web Development  |  Module 3 2
+--- PAGE 3 ---
+01  ·  HTML FORMS
+Anatomy of an HTML Form
+A form is the browser's way of collecting user input and packaging it for the server.
+<form action="/register" method="POST">
+<label>Name</label>
+<input type="text" name="username">
+<label>Email</label>
+<input type="email" name="email">
+<label>Resume</label>
+<input type="file" name="resume">
+<button type="submit">Submit</button>
+</form>1action—URL that receives the submitted data
+2method —HTTP verb used —GET or POST
+3name—Key used to read the value on the server
+4enctype —multipart/form -data required for file inputs
+Flask Web Development  |  Module 3 3
+--- PAGE 4 ---
+02  ·  HTTP METHODS
+GET vs POST
+The form's method attribute decides how data travels to the server.
+GET
+• Appends data to the URL as a query string
+• Visible in the address bar & browser history
+• Data length is limited
+• Best for search, filters, navigation
+• Safe to bookmark or refreshPOST
+• Sends data in the request body
+• Not visible in the URL
+• No practical size limit
+• Best for login, registration, uploads
+• Not cached or bookmarked by default
+Flask Web Development  |  Module 3 4
+--- PAGE 5 ---
+02  ·  HTTP METHODS
+Handling GET Requests
+@app.route("/search")
+def search():
+query = request.args.get("q", "")
+results = run_search(query)
+return render_template(
+"results.html",
+results=results
+)
+example.com/search?q=flaskrequest.args
+• Reads values from the query string (?key=value)
+• request.args.get("q") avoids KeyError if missing
+• Great for filters, search boxes, pagination
+• Data is visible and shareable via the URL
+Flask Web Development  |  Module 3 5
+--- PAGE 6 ---
+02  ·  HTTP METHODS
+Handling POST Requests
+@app.route("/register",
+methods=["GET", "POST"])
+def register():
+if request.method == "POST":
+name = request.form["username"]
+email = request.form["email"]
+save_user(name, email)
+return redirect("/success")
+return render_template("register.html")request.form
+• Reads values from the submitted request body
+• Route must explicitly allow methods=["POST"]
+• Always check request.method before branching
+• Used for logins, registrations, and form submissions
+Flask Web Development  |  Module 3 6
+--- PAGE 7 ---
+03  ·  REQUEST OBJECT
+Flask's request Object
+Imported from flask, request carries everything the client sent —for the current request only.
+request.method
+The HTTP verb used —"GET" or "POST"request.form
+Submitted form fields (POST body)
+request.args
+Query -string parameters (?key=value)request.values
+Combined form + args, read -only
+request.files
+Uploaded files as FileStorage objectsrequest.cookies
+Cookies sent by the browser
+Flask Web Development  |  Module 3 7
+--- PAGE 8 ---
+03  ·  REQUEST OBJECT
+Reading Submitted Data
+@app.route("/contact", methods=["POST"])
+def contact():
+name = request.form.get("name")
+email = request.form.get("email")
+topic = request.args.get("ref", "site")
+if not name or not email:
+flash("All fields are required")
+return redirect("/contact")
+send_message(name, email, topic)
+return render_template("thanks.html")• Use .get("key") over ["key"] to avoid crashing on missing 
+fields
+• Pass a default: .get("topic", "site")
+• request.form is a dict -like ImmutableMultiDict
+• Combine with request.method to branch GET vs POST 
+logic
+Flask Web Development  |  Module 3 8
+--- PAGE 9 ---
+04  ·  FILE UPLOADS
+How File Uploads Work
+File inputs need a different form encoding —and a different read on the server.
+1
+Form
+enctype="multipart/form -
+data"
+Required so the browser sends binary 
+file data→2
+Browser
+Uploads the file in the 
+request body
+Alongside any other form fields→3
+Flask
+request.files["field_name
+"]
+Returns a FileStorage object for the file→4
+Server
+file.save(path)
+Writes it to the upload folder on disk
+Flask Web Development  |  Module 3 9
+--- PAGE 10 ---
+04  ·  FILE UPLOADS
+Saving Uploaded Files Safely
+from werkzeug.utils import secure_filename
+app.config["UPLOAD_FOLDER"] = "uploads/"
+ALLOWED = {"png", "jpg", "jpeg", "pdf"}
+@app.route("/upload", methods=["POST"])
+def upload():
+file = request.files.get("resume")
+if file and allowed(file.filename):
+name = secure_filename(file.filename)
+path = os.path.join(
+app.config["UPLOAD_FOLDER"], name)
+file.save(path)
+return "Uploaded successfully"
+return "Invalid file", 400secure_filename()
+Strips path characters & unsafe names before saving
+allowed(filename)
+Checks the extension against a whitelist
+UPLOAD_FOLDER
+A dedicated, writable directory —never the app root
+Flask Web Development  |  Module 3 10
+--- PAGE 11 ---
+04  ·  VALIDATION
+Input Validation
+Never trust submitted data —validate on the server even if the browser already checked it.
+Client -Side
+• HTML attributes: required, type, pattern, maxlength
+• Instant feedback, better UX
+• Easy to bypass —not a security controlServer -Side
+• Checked in the Flask route on every request
+• Validates presence, type, length, format
+• The only validation that can be trusted
+Common checks: required fields  ·  data type  ·  length limits  ·  email/pattern format  ·  file type & size
+Flask Web Development  |  Module 3 11
+--- PAGE 12 ---
+04  ·  VALIDATION
+Server -Side Validation Example
+@app.route("/register", methods=["POST"])
+def register():
+errors = []
+name = request.form.get("username", "").strip()
+email = request.form.get("email", "").strip()
+age = request.form.get("age", "")
+if not name or len(name) < 3:
+errors.append("Username must be at least 3 characters")
+if "@" not in email:
+errors.append("Enter a valid email address")
+if not age.isdigit() or not (0 < int(age) < 120):
+errors.append("Age must be a number between 1 and 119")
+if errors:
+return render_template("register.html", errors=errors)
+save_user(name, email, age)
+return redirect("/success")
+Flask Web Development  |  Module 3 12
+--- PAGE 13 ---
+LAB WORK
+Hands -On Lab
+Two connected labs —build the form, then handle what it sends.
+Lab 1
+Create Input Forms with Validation
+Build an HTML form and validate its fields on the server before 
+accepting the data.Lab 2
+Handle File Uploads & Form Responses
+Extend the form to accept a file, save it safely, and return a 
+proper response.
+Flask Web Development  |  Module 3 13
+--- PAGE 14 ---
+LAB 1
+Create Input Forms with Validation
+1Design the form   Create an HTML template with name, email, and age fields plus a submit button.
+2Add the route   Create a Flask route that accepts GET (show form) and POST (process it).
+3Read the data   Use request.form.get() to pull each field inside the POST branch.
+4Validate server -side   Check required fields, length, and format; collect any errors found.
+5Return feedback   Re-render the form with error messages, or redirect on success.
+Flask Web Development  |  Module 3 14
+--- PAGE 15 ---
+LAB 2
+Handle File Uploads & Form Responses
+1Update the form   Add enctype="multipart/form -data" and a file input for the upload.
+2Configure Flask   Set UPLOAD_FOLDER and a whitelist of ALLOWED_EXTENSIONS.
+3Read the file   Access it with request.files["field_name"] in the POST branch.
+4Save it safely   Clean the filename with secure_filename() before calling file.save().
+5Respond to the user   Show a success message or redirect to a confirmation page.
+Flask Web Development  |  Module 3 15
+--- PAGE 16 ---
+KEY TAKEAWAYS
+Summary
+HTML forms collect user input and submit it via GET or POST
+GET sends data in the URL; POST sends it in the request body
+request.form, request.args, and request.files read submitted data
+Uploads need multipart/form -data and secure_filename() before saving
+Always validate on the server —client -side checks can be bypassed
+Flask Web Development  |  Module 3 16

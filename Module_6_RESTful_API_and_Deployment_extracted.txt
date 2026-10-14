@@ -1,0 +1,174 @@
+TOTAL PAGES: 14
+
+--- PAGE 1 ---
+MODULE 6
+RESTful API and Deployment
+Building scalable endpoints, handling JSON, and deploying to production.
+--- PAGE 2 ---
+What is an API?
+Application Programming Interface
+Enables two software applications to communicate with 
+each other.
+Common Examples
+Google Maps API
+Payment Gateways (Stripe)
+Weather Data APIsMobile App
+Flask API
+Database
+--- PAGE 3 ---
+REST Architecture
+Representational State Transfer
+Architectural style used to design modern web APIs.
+Core PrinciplesResource Example
+Targeting a /students resource:
+Standard HTTP protocols.
+Resource -based URLs.
+JSON payload formatting.
+Standard HTTP status codes.GET /students
+POST /students
+GET /students/1
+PUT /students/1
+DELETE /students/1
+--- PAGE 4 ---
+Method Purpose CRUD Mapping
+GET Read or retrieve data. READ
+POST Create new data. CREATE
+PUT / PATCH Update existing data. UPDATE
+DELETE Remove existing data. DELETEHTTP Methods in REST
+--- PAGE 5 ---
+API Request and Response
+Client Request Server Response
+[ { "id": 1, "name": "Rahul" } ]Method: GET
+URL: /students
+Headers: Authentication, Content -Type
+Body: (Optional JSON data)Status Code: 200 OK
+Headers: Content -Type: application/json
+--- PAGE 6 ---
+Creating Endpoints
+Flask translates Python dictionaries and lists directly into 
+JSON responses using jsonify .fromflask importFlask,jsonify
+app = Flask(__name__) 
+@app.route("/students" ) 
+defstudents (): 
+data = [ 
+{"id": 1, "name": "Rahul", "course" : "MCA"},           
+{"id": 2, "name": "Priya", "course" : "BCA"}
+] 
+returnjsonify(data) 
+if__name__ == "__main__" : 
+app.run(debug=True)Browser Output
+[ 
+{ "course" : "MCA", "id": 1, "name": "Rahul" }, 
+{ "course" : "BCA", "id": 2, "name": "Priya" } 
+]
+--- PAGE 7 ---
+JSON Data Exchange
+JSON Object (Dictionary)
+{ "id": 1, "name": "Rahul", "course" : "MCA"}JSON Array (List)
+[ 
+{ "id": 1, "name": "Rahul" }, 
+{ "id": 2, "name": "Priya" } 
+]
+Sending JSON from Flask
+return jsonify(student)Receiving JSON in Flask
+data = request.get_json()
+--- PAGE 8 ---
+POST API Example
+Used to receive data and create a new resource. Returns a 201 Created
+status.
+@app.route("/students" , methods=[ "POST"]) 
+defadd_student (): 
+data = request. get_json () 
+name = data[ "name"]
+course = data[ "course" ] 
+# Save to database logic here...
+returnjsonify({ "message" : "Student added" , 
+"name": name, "course" : course }), 201Client Sends:
+{ "name": "Amit", "course" : "MCA"}
+Server Responds:
+{ "message" : "Student added" , "name": "Amit", 
+"course" : "MCA"}
+--- PAGE 9 ---
+REST API Status Codes
+2xx
+Success4xx
+Client Error5xx
+Server Error
+200 OK
+201 Created
+204 No Content400 Bad Request
+401 Unauthorized
+403 Forbidden
+404 Not Found500 Internal Server Error
+--- PAGE 10 ---
+Error Handling
+# Global 404 Handler
+@app.errorhandler (404) 
+defnot_found (error): 
+returnjsonify({ "error": "Resource not found"
+}), 404
+# Handling Invalid Data
+@app.route("/students" , methods=[ "POST"]) 
+defadd_student (): 
+data = request. get_json () 
+ifnotdata or"name"not indata: 
+returnjsonify({ "error": "Name is 
+required" }), 400
+returnjsonify({"message" : "Added"})Benefits
+Better user experience.
+Clear API responses.
+Easier debugging.
+Consistent error format.
+--- PAGE 11 ---
+Level Purpose
+DEBUG Detailed dev information.
+INFO Normal application events.
+WARNING Potential problems.
+ERROR Serious execution problem.
+CRITICAL Very serious failure.Logging in Flask
+Records important events during execution, crucial for post -deployment debugging.
+importlogging 
+logging. basicConfig (level=logging.INFO) 
+logging. info("Student added successfully" ) 
+logging. warning("Invalid student data" ) 
+logging. error("Database error" )
+--- PAGE 12 ---
+Flask Blueprints
+Organizes large Flask applications into smaller, manageable 
+modules.students/routes.py
+fromflask importBlueprint 
+student_bp = Blueprint ("student" , __name__) 
+@student_bp. route("/students" ) 
+defstudents (): 
+return"Student API"
+app.py
+fromflask importFlask 
+fromstudents.routes importstudent_bp
+app = Flask(__name__) 
+app.register_blueprint (student_bp )project/
+├── app.py
+├── students/
+│ └── routes.py
+├── users/
+│ └── routes.py
+└── api/
+└── routes.py
+--- PAGE 13 ---
+Flask Deployment Flow
+Important Pre -flight Checklist
+1. Generate requirements.txt (pip freeze > requirements.txt).
+2. Disable debug mode (Remove app.run(debug=True)).
+3. Secure environment variables & database configuration.Development
+Your Computer
+Flask Dev Server
+localhost:5000Production
+Hosting Server
+WSGI + Flask App
+Public URL
+--- PAGE 14 ---
+Hosting Platforms
+Module Summary
+REST API JSON Endpoints Error Handling Blueprints DeploymentRender
+GitHub -based automated deployment.PythonAnywhere
+Simple Python environment hosting.Heroku
+Classic Git -based cloud platform.

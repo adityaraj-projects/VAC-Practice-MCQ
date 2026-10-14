@@ -1,0 +1,72 @@
+
+--- PAGE 1 ---
+ 
+Subject Syllabus  (Value Added Course)  
+227862  - Web Application Development using Flask 
+(Python Framework)   
+ Course: MCA /MSc (IT)/MSc (IT) DS                                                    Semester: 3
+Rationale:  The key objective of this course is to introduce the fundamentals of web development and build dynamic web 
+applications using the Flask framework. It also aims to develop skills in database integration, user authentication, and depl oyment 
+of scalable web applications.   
+Prerequisite:  Basic knowledge of computers, HTML, and fundamental programming concepts such as variables, 
+functions, and logic is recommended.  
+ 
+Course Content  
+Sr. Topics  Hrs 
+1 Module 1: Introduction to Flask and Web Development Concepts  :  
+Fundamentals of Web Development, Flask vs Django overview, Introduction to Flask: Architecture and Advantages, 
+Flask installation and setup using pip and virtual environments, Creating the first Flask app: “Hello World” 
+,Understanding Flask project directory structure.  
+Lab Work :Build and run your first Flask web application,Use app.route() for defining routes.  4 
+2  Module 2: Routing, Templating and Static Files :  
+Understanding URL Routing ,Dynamic URL building using url_for(),Template engine: Jinja2,Template inheritance 
+and filters,Passing data to HTML templates,Static files (CSS, JS, images).  
+Lab Work :Build multipage navigation,Create reusable base templates and use Bootstrap.  4 
+3 Module 3: Forms and Request Handling  :  
+Working with HTML forms,HTTP methods: GET, POST,Handling form data with request object,File uploads and 
+input validation  
+Lab Work: Create input forms with validations,Handle file uploads and form responses  4 
+4 Module 4: Flask with Database Integration : 
+Basics of Relational Databases (SQLite/MySQL),Introduction to SQLAlchemy ORM,Performing CRUD operations 
+with Flask + SQLAlchemy,Migrations with Flask -Migrate,Database session management  
+Lab Work :Build a CRUD application (e. g., task manager or student records)  4 
+5 Module 5: User Authentication and Sessions : 
+User login/logout using Flask -Login,Managing sessions and cookies,Flash messaging,Creating registration and 
+profile update forms,Role -based access control.  
+Lab Work :Build  a user registration/login systemMaintain user session and restrict routes by login status  4 
+6 RESTful API and Deployment : 
+Introduction to RESTful APIs,Creating REST endpoints with Flask,JSON data exchange,Organizing project with Flask 
+Blueprints,Error  handling and logging,Deployment options (Heroku, Render, PythonAnywhere)  
+Lab Work :Build a simple API with FlaskCreate modular Flask apps using Blueprints  4 
+7 Module 7: Project Work  6 
+Total  30 
+ 
+Reference Books   
+1. Flask Web Development – Miguel Grinberg  
+A comprehensive guide to building web applications with Flask.  
+2. Python Web Development with Flask  – Samuli Natri  
+Covers Flask fundamentals and real -world applications  
+3. Learning Flask Framework  – Matt Copperwaite  
+Beginner -friendly introduction to Flask development.  
+4. Flask By Example  – Gareth Dwyer  
+Practical, project -based approach to learning Flask.  
+ 
+ 
+ 
+--- PAGE 2 ---
+ 
+Subject Syllabus  (Value Added Course)  
+227862  - Web Application Development using Flask 
+(Python Framework)   
+  
+ 
+ 
+Course Outcome   
+After Learning the Course the students shall be able to:  
+1. Understand web development fundamentals and build basic web applications using the Flask framework.  
+2. Design dynamic web pages using routing, templates (Jinja2), and handle user input through forms and HTTP requests.  
+3. Integrate databases using SQLAlchemy  and perform CRUD operations for data -driven applications.  
+4.    Develop secure and scalable web applications with authentication, RESTful APIs, and deploy them on cloud platforms . 
+ 
+ 
+ 
